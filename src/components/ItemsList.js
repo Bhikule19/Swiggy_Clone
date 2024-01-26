@@ -11,7 +11,7 @@ const ItemsList = ({ items }) => {
     dispatch(addItem(item));
   };
 
-  console.log(items);
+  // console.log(items);
   return (
     <div>
       {items.map((item) => (

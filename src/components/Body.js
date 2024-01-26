@@ -4,7 +4,7 @@ import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
-import { Banner_Cuisines_IMG } from "../utils/constant";
+import { Banner_Cuisines_IMG, REST_API, CORS_API } from "../utils/constant";
 import { IoArrowBackCircle, IoArrowForwardCircle } from "react-icons/io5";
 
 const Body = () => {
@@ -25,16 +25,13 @@ const Body = () => {
   const [restListHeading, setRestListHeading] = useState([]);
 
   const RestaurantCardVeg = withVegLabel(RestuarantCard);
-  console.log(listOfRestaurant);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0177989&lng=72.84781199999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(CORS_API + REST_API);
     const json = await data.json();
 
     // console.log(json);
@@ -48,6 +45,7 @@ const Body = () => {
     setBannerHeading(json?.data?.cards[0]?.card?.card?.header?.title);
 
     setCuisinesList(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+    // console.log(cuisinesList);
 
     setRestChainHeading(json?.data?.cards[1]?.card?.card?.header?.title);
 

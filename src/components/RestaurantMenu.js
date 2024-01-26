@@ -33,6 +33,8 @@ const RestaurantMenu = () => {
     feeDetails,
   } = resInfo?.cards[0]?.card?.card?.info || {};
 
+  // console.log(resInfo);
+
   const offerData =
     resInfo?.cards[1].card.card.gridElements.infoWithStyle.offers;
 
