@@ -4,6 +4,7 @@
   "description": "Swiggy Clone using React, Redux Toolkit and API Integration",
   "scripts": {
     "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
