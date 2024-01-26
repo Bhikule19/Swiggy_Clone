@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Code to hide scroll bar  */
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .text-breakwords {
+    margin: 0px;
+    font-family: ProximaNova, arial, Helvetica Neue, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.3px;
+    color: rgba(2, 6, 12, 0.75);
+    overflow: hidden;
+    width: 100%;
+    display: -webkit-box;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .single-text-breakwords {
+    margin: 0px;
+    /* font-weight: 700; */
+    font-family: ProximaNova, arial, Helvetica Neue, sans-serif;
+
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.3px;
+    color: rgba(81, 85, 91, 0.75);
+    overflow: hidden;
+    width: 100%;
+    display: -webkit-box;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .vertical-lr {
+    writing-mode: vertical-lr;
+  }
+
+  .calcualedwh {
+    width: calc(30vw - 54px);
+    height: calc(33.6vw - 60.48px);
+  }
+
+  .restmenu-width {
+    max-width: calc(100% - 144px);
+  }
+
+  .header-style {
+    transform: translateZ(0);
+    transition: transform 0.3s ease;
+    contain: size layout style;
+  }
+
+  .header-shadow {
+    box-shadow: 0 15px 40px -20px rgba(40, 44, 63, 0.15);
+  }
+}
