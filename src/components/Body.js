@@ -159,12 +159,21 @@ const Body = () => {
   return listOfRestaurant?.length === 0 ? (
     <Shimmer />
   ) : (
-    <div
-      className="body px-[7rem] max-md:px-5 font-[ProximaNova,arial,Helvetica N
+    <div>
+      {isMobile ? (
+        <div
+          className="body px-[7rem] max-md:px-5 font-[ProximaNova,arial,Helvetica N
+          eue,sans-serif] mt-[100px]"
+        >
+          <h1>Preview it in Desktop mode only</h1>
+        </div>
+      ) : (
+        <div
+          className="body px-[7rem] max-md:px-5 font-[ProximaNova,arial,Helvetica N
     eue,sans-serif] mt-[100px]  "
-    >
-      <div className="px-20 max-md:px-0">
-        {/* <div className="filter flex justify-between	p-10 ">
+        >
+          <div className="px-20 max-md:px-0">
+            {/* <div className="filter flex justify-between	p-10 ">
           <div className="search ">
             <input
               type="text"
@@ -209,175 +218,175 @@ const Body = () => {
           </div>
         </div> */}
 
-        {/* ------------------------Banner start------------------- */}
+            {/* ------------------------Banner start------------------- */}
 
-        <div className="banner max-md:p-4">
-          <div className="banner-heading  font-bold text-2xl flex justify-between	mb-2">
-            {isMobile ? (
-              <h1 className="text-xl font-extrabold text-[#02060ceb]">
-                {mobBannerHeading}
-              </h1>
-            ) : (
-              <h1>{bannerHeading}</h1>
-            )}
+            <div className="banner max-md:p-4">
+              <div className="banner-heading  font-bold text-2xl flex justify-between	mb-2">
+                {isMobile ? (
+                  <h1 className="text-xl font-extrabold text-[#02060ceb]">
+                    {mobBannerHeading}
+                  </h1>
+                ) : (
+                  <h1>{bannerHeading}</h1>
+                )}
 
-            <div className="flex max-md:hidden">
-              <IoArrowBackCircle
-                className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
-                onClick={cuisineSlideLeft}
-                size={35}
-              />
-              <IoArrowForwardCircle
-                className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
-                onClick={cuisineSlideRight}
-                size={35}
-              />
-            </div>
-          </div>
-          {isMobile ? (
-            //Content for mobile screen
-            <div className="overflow-x-scroll overflow-y-hidden no-scrollbar ">
-              <div className="flex " id="cuisineSlider">
-                <div className="flex gap-4">
-                  {mobCuisinesList.slice(0, 10).map((cuisine) => (
-                    <div className="w-20 h-24" key={cuisine.id}>
-                      <img
-                        className="w-20 h-24"
-                        src={Banner_Cuisines_IMG + cuisine.imageId}
-                      />
-                    </div>
-                  ))}
+                <div className="flex max-md:hidden">
+                  <IoArrowBackCircle
+                    className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
+                    onClick={cuisineSlideLeft}
+                    size={35}
+                  />
+                  <IoArrowForwardCircle
+                    className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
+                    onClick={cuisineSlideRight}
+                    size={35}
+                  />
                 </div>
               </div>
-              <div className="flex gap-4" id="cuisineSlider">
-                <div className="flex gap-4">
-                  {mobCuisinesList.slice(-10).map((cuisine) => (
-                    <div className="w-20 h-24" key={cuisine.id}>
-                      <img
-                        className="w-full h-full"
-                        src={Banner_Cuisines_IMG + cuisine.imageId}
-                      />
+              {isMobile ? (
+                //Content for mobile screen
+                <div className="overflow-x-scroll overflow-y-hidden no-scrollbar ">
+                  <div className="flex " id="cuisineSlider">
+                    <div className="flex gap-4">
+                      {mobCuisinesList.slice(0, 10).map((cuisine) => (
+                        <div className="w-20 h-24" key={cuisine.id}>
+                          <img
+                            className="w-20 h-24"
+                            src={Banner_Cuisines_IMG + cuisine.imageId}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ) : (
-            //Content for Larger device
-            <div
-              className="flex overflow-x-auto scroll scroll-smooth whitespace-nowrap no-scrollbar"
-              id="cuisineSlider"
-            >
-              <div className="flex gap-4">
-                {cuisinesList.map((cuisine) => (
-                  <div className="w-[150px]" key={cuisine.id}>
-                    <img
-                      className="w-full h-full"
-                      src={Banner_Cuisines_IMG + cuisine.imageId}
-                    />
                   </div>
-                ))}
+                  <div className="flex gap-4" id="cuisineSlider">
+                    <div className="flex gap-4">
+                      {mobCuisinesList.slice(-10).map((cuisine) => (
+                        <div className="w-20 h-24" key={cuisine.id}>
+                          <img
+                            className="w-full h-full"
+                            src={Banner_Cuisines_IMG + cuisine.imageId}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                //Content for Larger device
+                <div
+                  className="flex overflow-x-auto scroll scroll-smooth whitespace-nowrap no-scrollbar"
+                  id="cuisineSlider"
+                >
+                  <div className="flex gap-4">
+                    {cuisinesList.map((cuisine) => (
+                      <div className="w-[150px]" key={cuisine.id}>
+                        <img
+                          className="w-full h-full"
+                          src={Banner_Cuisines_IMG + cuisine.imageId}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ------------------------Banner end------------------- */}
+
+            <div className="divider">
+              <hr className=" border-[1px] bg-[rgb(240, 240, 245)] m-4"></hr>
+            </div>
+
+            {/* -------------------------Rest Chain section start ------------------------ */}
+
+            <div className="rest-chain-section flex flex-col mb-8">
+              <div className="res-chain-heading mb-5 flex justify-between text-2xl font-bold text-[#02060ceb]">
+                {isMobile ? (
+                  <h1 className="text-xl font-extrabold text-[#02060ceb]">
+                    {mobRestChainHeading}
+                  </h1>
+                ) : (
+                  <h1>{restChainHeading}</h1>
+                )}
+                <div className="flex max-md:hidden">
+                  <IoArrowBackCircle
+                    className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
+                    onClick={restaurantSlideLeft}
+                    size={35}
+                  />
+                  <IoArrowForwardCircle
+                    className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
+                    onClick={restaurantSlideRight}
+                    size={35}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-
-        {/* ------------------------Banner end------------------- */}
-
-        <div className="divider">
-          <hr className=" border-[1px] bg-[rgb(240, 240, 245)] m-4"></hr>
-        </div>
-
-        {/* -------------------------Rest Chain section start ------------------------ */}
-
-        <div className="rest-chain-section flex flex-col mb-8">
-          <div className="res-chain-heading mb-5 flex justify-between text-2xl font-bold text-[#02060ceb]">
-            {isMobile ? (
-              <h1 className="text-xl font-extrabold text-[#02060ceb]">
-                {mobRestChainHeading}
-              </h1>
-            ) : (
-              <h1>{restChainHeading}</h1>
-            )}
-            <div className="flex max-md:hidden">
-              <IoArrowBackCircle
-                className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
-                onClick={restaurantSlideLeft}
-                size={35}
-              />
-              <IoArrowForwardCircle
-                className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
-                onClick={restaurantSlideRight}
-                size={35}
-              />
-            </div>
-          </div>
-          {/* -----------------------------------------------------------------------------/ */}
-          {isMobile ? (
-            <div className="rest-chain-list">
-              <div
-                className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 max-md:gap-5 "
-                id="restaurantChainSlider"
-              >
-                {mobRestChainList.map((topratedrest) => (
-                  <Link
-                    key={topratedrest.info.id}
-                    to={"/restaurants/" + topratedrest.info.id}
+              {/* -----------------------------------------------------------------------------/ */}
+              {isMobile ? (
+                <div className="rest-chain-list">
+                  <div
+                    className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 max-md:gap-5 "
+                    id="restaurantChainSlider"
                   >
-                    {
-                      <RestuarantCard
-                        mobResData={topratedrest}
-                        resData={topratedrest}
-                        isMobile={isMobile}
-                        className="text-breakwords "
-                      ></RestuarantCard>
-                    }
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="rest-chain-list">
-              <div
-                className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 "
-                id="restaurantChainSlider"
-              >
-                {restChainList.map((topratedrest) => (
-                  <Link
-                    key={topratedrest.info.id}
-                    to={"/restaurants/" + topratedrest.info.id}
+                    {mobRestChainList.map((topratedrest) => (
+                      <Link
+                        key={topratedrest.info.id}
+                        to={"/restaurants/" + topratedrest.info.id}
+                      >
+                        {
+                          <RestuarantCard
+                            mobResData={topratedrest}
+                            resData={topratedrest}
+                            isMobile={isMobile}
+                            className="text-breakwords "
+                          ></RestuarantCard>
+                        }
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="rest-chain-list">
+                  <div
+                    className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 "
+                    id="restaurantChainSlider"
                   >
-                    {
-                      <RestuarantCard
-                        resData={topratedrest}
-                        mobResData={topratedrest}
-                        isMobile={isMobile}
-                        className="text-breakwords "
-                      ></RestuarantCard>
-                    }
-                  </Link>
-                ))}
-              </div>
+                    {restChainList.map((topratedrest) => (
+                      <Link
+                        key={topratedrest.info.id}
+                        to={"/restaurants/" + topratedrest.info.id}
+                      >
+                        {
+                          <RestuarantCard
+                            resData={topratedrest}
+                            mobResData={topratedrest}
+                            isMobile={isMobile}
+                            className="text-breakwords "
+                          ></RestuarantCard>
+                        }
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
 
-        {/* -------------------------Rest Chain section end ------------------------ */}
+            {/* -------------------------Rest Chain section end ------------------------ */}
 
-        <div className="divider">
-          <hr className=" bborder-[1px] bg-[rgb(240, 240, 245)] m-4"></hr>
-        </div>
+            <div className="divider">
+              <hr className=" bborder-[1px] bg-[rgb(240, 240, 245)] m-4"></hr>
+            </div>
 
-        {/* ---------------------------------Restaurant list start--------------------------------- */}
+            {/* ---------------------------------Restaurant list start--------------------------------- */}
 
-        <div className="res-container">
-          <div className="reslist-header mb-5">
-            <h2 className="font-bold text-2xl max-md:text-xl ">
-              {isMobile ? mobRestListHeading : restListHeading}
-            </h2>
-          </div>
-          {/* -------------------------------------------------------------------------------------------------- */}
-          {/* {listOfRestaurant.length ? (
+            <div className="res-container">
+              <div className="reslist-header mb-5">
+                <h2 className="font-bold text-2xl max-md:text-xl ">
+                  {isMobile ? mobRestListHeading : restListHeading}
+                </h2>
+              </div>
+              {/* -------------------------------------------------------------------------------------------------- */}
+              {/* {listOfRestaurant.length ? (
             <div className="rest-chain-list">
               <div
                 className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 "
@@ -399,8 +408,8 @@ const Body = () => {
               </div>
             </div>
           ) : null} */}
-          <div className="filter-buttons flex items-center">
-            {/* <div className="rating-button mr-4">
+              <div className="filter-buttons flex items-center">
+                {/* <div className="rating-button mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -413,7 +422,7 @@ const Body = () => {
                 Rating 4.5+
               </button>
             </div> */}
-            {/* <div className="fastdelivery-button mr-4">
+                {/* <div className="fastdelivery-button mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -426,7 +435,7 @@ const Body = () => {
                 Fast Delivery
               </button>
             </div> */}
-            {/* <div className="cost-300 mr-4">
+                {/* <div className="cost-300 mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -440,7 +449,7 @@ const Body = () => {
                 Less than Rs. 300
               </button>
             </div> */}
-            {/* <div className="cost-300-600 mr-4">
+                {/* <div className="cost-300-600 mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -454,7 +463,7 @@ const Body = () => {
                 Rs. 300 - Rs. 600
               </button>
             </div> */}
-            {/* <div className="Pure-Veg">
+                {/* <div className="Pure-Veg">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -467,64 +476,66 @@ const Body = () => {
                 Pure Veg
               </button>
             </div> */}
+              </div>
+              {isMobile ? (
+                <div className="grid grid-cols-2 max-md:gap justify-center items-start  ">
+                  {
+                    mobListOfRestaurant.map((restuarant) => (
+                      <Link
+                        key={restuarant.info.id}
+                        to={"/restaurants/" + restuarant.info.id}
+                        className=""
+                      >
+                        {restuarant.info.veg ? (
+                          <RestaurantCardVeg
+                            resData={restuarant}
+                            mobResData={restuarant}
+                            isMobile={isMobile}
+                            className="text-breakwords "
+                          />
+                        ) : (
+                          <RestuarantCard
+                            resData={restuarant}
+                            mobResData={restuarant}
+                            isMobile={isMobile}
+                            className="text-breakword"
+                          />
+                        )}
+                      </Link>
+                    )) // Looping over arrray using Map
+                  }
+                </div>
+              ) : (
+                <div className="grid grid-cols-4  items-start gap-8 my-8 ">
+                  {
+                    listOfRestaurant.map((restuarant) => (
+                      <Link
+                        key={restuarant.info.id}
+                        to={"/restaurants/" + restuarant.info.id}
+                      >
+                        {restuarant.info.veg ? (
+                          <RestaurantCardVeg
+                            resData={restuarant}
+                            mobResData={restuarant}
+                            isMobile={isMobile}
+                          />
+                        ) : (
+                          <RestuarantCard
+                            resData={restuarant}
+                            mobResData={restuarant}
+                            isMobile={isMobile}
+                          />
+                        )}
+                      </Link>
+                    )) // Looping over arrray using Map
+                  }
+                </div>
+              )}
+            </div>
+            {/* ---------------------------------Restaurant list end --------------------------------- */}
           </div>
-          {isMobile ? (
-            <div className="grid grid-cols-2 max-md:gap justify-center items-start  ">
-              {
-                mobListOfRestaurant.map((restuarant) => (
-                  <Link
-                    key={restuarant.info.id}
-                    to={"/restaurants/" + restuarant.info.id}
-                    className=""
-                  >
-                    {restuarant.info.veg ? (
-                      <RestaurantCardVeg
-                        resData={restuarant}
-                        mobResData={restuarant}
-                        isMobile={isMobile}
-                        className="text-breakwords "
-                      />
-                    ) : (
-                      <RestuarantCard
-                        resData={restuarant}
-                        mobResData={restuarant}
-                        isMobile={isMobile}
-                        className="text-breakword"
-                      />
-                    )}
-                  </Link>
-                )) // Looping over arrray using Map
-              }
-            </div>
-          ) : (
-            <div className="grid grid-cols-4  items-start gap-8 my-8 ">
-              {
-                listOfRestaurant.map((restuarant) => (
-                  <Link
-                    key={restuarant.info.id}
-                    to={"/restaurants/" + restuarant.info.id}
-                  >
-                    {restuarant.info.veg ? (
-                      <RestaurantCardVeg
-                        resData={restuarant}
-                        mobResData={restuarant}
-                        isMobile={isMobile}
-                      />
-                    ) : (
-                      <RestuarantCard
-                        resData={restuarant}
-                        mobResData={restuarant}
-                        isMobile={isMobile}
-                      />
-                    )}
-                  </Link>
-                )) // Looping over arrray using Map
-              }
-            </div>
-          )}
         </div>
-        {/* ---------------------------------Restaurant list end --------------------------------- */}
-      </div>
+      )}
     </div>
   );
 };
