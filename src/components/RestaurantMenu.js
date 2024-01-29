@@ -13,6 +13,7 @@ import {
   faCircleHalfStroke,
   faIndianRupeeSign,
 } from "@fortawesome/free-solid-svg-icons";
+
 const RestaurantMenu = () => {
   const [showItems, setshowItems] = useState(0);
 

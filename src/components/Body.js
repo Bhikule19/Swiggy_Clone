@@ -4,56 +4,130 @@ import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
-import { Banner_Cuisines_IMG, REST_API, CORS_API } from "../utils/constant";
+import { useMediaQuery } from "react-responsive";
+import {
+  Banner_Cuisines_IMG,
+  REST_API,
+  CORS_API,
+  MOB_REST_API,
+} from "../utils/constant";
 import { IoArrowBackCircle, IoArrowForwardCircle } from "react-icons/io5";
 
 const Body = () => {
-  const [listOfRestaurant, setlistOfRestaurant] = useState([]);
-
   const [searchText, setsearchTExt] = useState("");
 
+  const [listOfRestaurant, setlistOfRestaurant] = useState([]);
+  const [mobListOfRestaurant, setMoblistOfRestaurant] = useState([]);
+
   const [filteredRest, setfilteredRest] = useState([]);
+  const [mobFilteredRest, setMobFilteredRest] = useState([]);
 
   const [bannerHeading, setBannerHeading] = useState("");
+  const [mobBannerHeading, setMobBannerHeading] = useState("");
 
   const [cuisinesList, setCuisinesList] = useState([]);
+  const [mobCuisinesList, setMobCuisinesList] = useState([]);
 
   const [restChainHeading, setRestChainHeading] = useState("");
+  const [mobRestChainHeading, setMobRestChainHeading] = useState("");
 
   const [restChainList, setRestChainList] = useState([]);
+  const [mobRestChainList, setMobRestChainList] = useState([]);
 
   const [restListHeading, setRestListHeading] = useState([]);
+  const [mobRestListHeading, setMobRestListHeading] = useState([]);
 
   const RestaurantCardVeg = withVegLabel(RestuarantCard);
 
+  const [dataFromFirstAPI, setDataFromFirstAPI] = useState([]);
+  const [dataFromSecondAPI, setDataFromSecondAPI] = useState([]);
+
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" }); // Define mobile screen size
+
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    fetch(CORS_API + REST_API)
+      .then((response) => response.json())
+      .then((data) => {
+        setDataFromFirstAPI(data);
+        setlistOfRestaurant(
+          data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        );
+        setfilteredRest(
+          data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        );
+
+        setBannerHeading(data?.data?.cards[0]?.card?.card?.header?.title);
+
+        setCuisinesList(data?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+
+        setRestChainHeading(data?.data?.cards[1]?.card?.card?.header?.title);
+
+        setRestChainList(
+          data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        );
+
+        setRestListHeading(data?.data?.cards[2]?.card?.card?.title);
+      })
+      .catch((error) =>
+        console.error("Error fetching data from the first API:", error)
+      );
+
+    // Fetch data from the second API
+    fetch(MOB_REST_API)
+      .then((response) => response.json())
+      .then((data) => {
+        setDataFromSecondAPI(data);
+        setMoblistOfRestaurant(
+          data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        );
+        setMobFilteredRest(
+          data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        );
+
+        setMobBannerHeading(data?.data?.cards[0]?.card?.card?.header?.title);
+
+        setMobCuisinesList(
+          data?.data?.cards[0]?.card?.card?.imageGridCards?.info
+        );
+
+        setMobRestChainHeading(data?.data?.cards[1]?.card?.card?.header?.title);
+
+        setMobRestChainList(
+          data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        );
+
+        setMobRestListHeading(data?.data?.cards[2]?.card?.card?.title);
+      })
+      .catch((error) =>
+        console.error("Error fetching data from the second API:", error)
+      );
   }, []);
 
-  const fetchData = async () => {
-    const data = await fetch(CORS_API + REST_API);
-    const json = await data.json();
+  // console.log("List of restaurants", mobListOfRestaurant);
+  // console.log("filterest rest", mobFilteredRest);
+  // console.log("benner heading", bannerHeading);
+  // console.log("cuisines list", mobCuisinesList.slice(-10));
+  // console.log("rest chain heading", restChainHeading);
+  // console.log("rest chain listing", mobRestChainList);
+  // console.log("rest list heading", restListHeading);
 
-    // console.log(json);
-    setlistOfRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setfilteredRest(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+  // console.log(dataFromFirstAPI);
+  // console.log("Mobile Data API =", dataFromSecondAPI);
 
-    setBannerHeading(json?.data?.cards[0]?.card?.card?.header?.title);
+  // const fetchData = async () => {
+  //   const data = await fetch(CORS_API + REST_API);
+  //   const json = await data.json();
 
-    setCuisinesList(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
-    // console.log(cuisinesList);
+  //   // console.log(json);
 
-    setRestChainHeading(json?.data?.cards[1]?.card?.card?.header?.title);
-
-    setRestChainList(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setRestListHeading(json?.data?.cards[2]?.card?.card?.title);
-  };
+  // };
 
   const onlineStatus = useOnlineStatus();
 
@@ -86,7 +160,7 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div
-      className="body px-[7rem] max-md:px-10 font-[ProximaNova,arial,Helvetica N
+      className="body px-[7rem] max-md:px-5 font-[ProximaNova,arial,Helvetica N
     eue,sans-serif] mt-[100px]  "
     >
       <div className="px-20 max-md:px-0">
@@ -135,12 +209,19 @@ const Body = () => {
           </div>
         </div> */}
 
-        {/* ------------------------Banner------------------- */}
+        {/* ------------------------Banner start------------------- */}
 
-        <div className="banner">
-          <div className="banner-heading  font-bold text-2xl flex justify-between	mb-0">
-            <h1>{bannerHeading}</h1>
-            <div className="flex">
+        <div className="banner max-md:p-4">
+          <div className="banner-heading  font-bold text-2xl flex justify-between	mb-2">
+            {isMobile ? (
+              <h1 className="text-xl font-extrabold text-[#02060ceb]">
+                {mobBannerHeading}
+              </h1>
+            ) : (
+              <h1>{bannerHeading}</h1>
+            )}
+
+            <div className="flex max-md:hidden">
               <IoArrowBackCircle
                 className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
                 onClick={cuisineSlideLeft}
@@ -153,35 +234,72 @@ const Body = () => {
               />
             </div>
           </div>
-          <div
-            className="flex overflow-x-auto scroll scroll-smooth whitespace-nowrap no-scrollbar"
-            id="cuisineSlider"
-          >
-            <div className="flex gap-4">
-              {cuisinesList.map((cuisine) => (
-                <div className="w-[150px]" key={cuisine.id}>
-                  <img
-                    className="w-full h-full"
-                    src={Banner_Cuisines_IMG + cuisine.imageId}
-                  />
+          {isMobile ? (
+            //Content for mobile screen
+            <div className="overflow-x-scroll overflow-y-hidden no-scrollbar ">
+              <div className="flex " id="cuisineSlider">
+                <div className="flex gap-4">
+                  {mobCuisinesList.slice(0, 10).map((cuisine) => (
+                    <div className="w-20 h-24" key={cuisine.id}>
+                      <img
+                        className="w-20 h-24"
+                        src={Banner_Cuisines_IMG + cuisine.imageId}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+              <div className="flex gap-4" id="cuisineSlider">
+                <div className="flex gap-4">
+                  {mobCuisinesList.slice(-10).map((cuisine) => (
+                    <div className="w-20 h-24" key={cuisine.id}>
+                      <img
+                        className="w-full h-full"
+                        src={Banner_Cuisines_IMG + cuisine.imageId}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            //Content for Larger device
+            <div
+              className="flex overflow-x-auto scroll scroll-smooth whitespace-nowrap no-scrollbar"
+              id="cuisineSlider"
+            >
+              <div className="flex gap-4">
+                {cuisinesList.map((cuisine) => (
+                  <div className="w-[150px]" key={cuisine.id}>
+                    <img
+                      className="w-full h-full"
+                      src={Banner_Cuisines_IMG + cuisine.imageId}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* ------------------------Banner------------------- */}
+        {/* ------------------------Banner end------------------- */}
 
         <div className="divider">
-          <hr className=" border-2 bg-[rgb(240, 240, 245)] m-[32px]"></hr>
+          <hr className=" border-[1px] bg-[rgb(240, 240, 245)] m-4"></hr>
         </div>
 
         {/* -------------------------Rest Chain section start ------------------------ */}
 
-        <div className="rest-chain-section flex flex-col mb-5">
-          <div className="res-chain-heading mb-5 flex justify-between">
-            <h2 className="font-bold text-2xl">{restChainHeading}</h2>
-            <div className="flex">
+        <div className="rest-chain-section flex flex-col mb-8">
+          <div className="res-chain-heading mb-5 flex justify-between text-2xl font-bold text-[#02060ceb]">
+            {isMobile ? (
+              <h1 className="text-xl font-extrabold text-[#02060ceb]">
+                {mobRestChainHeading}
+              </h1>
+            ) : (
+              <h1>{restChainHeading}</h1>
+            )}
+            <div className="flex max-md:hidden">
               <IoArrowBackCircle
                 className="m-1 opacity-30 hover:opacity-80 cursor-pointer"
                 onClick={restaurantSlideLeft}
@@ -194,42 +312,95 @@ const Body = () => {
               />
             </div>
           </div>
-          <div className="rest-chain-list">
-            <div
-              className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 "
-              id="restaurantChainSlider"
-            >
-              {restChainList.map((topratedrest) => (
-                <Link
-                  key={topratedrest.info.id}
-                  to={"/restaurants/" + topratedrest.info.id}
-                >
-                  {
-                    <RestuarantCard
-                      resData={topratedrest}
-                      className="text-breakwords "
-                    ></RestuarantCard>
-                  }
-                </Link>
-              ))}
+          {/* -----------------------------------------------------------------------------/ */}
+          {isMobile ? (
+            <div className="rest-chain-list">
+              <div
+                className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 max-md:gap-5 "
+                id="restaurantChainSlider"
+              >
+                {mobRestChainList.map((topratedrest) => (
+                  <Link
+                    key={topratedrest.info.id}
+                    to={"/restaurants/" + topratedrest.info.id}
+                  >
+                    {
+                      <RestuarantCard
+                        mobResData={topratedrest}
+                        resData={topratedrest}
+                        isMobile={isMobile}
+                        className="text-breakwords "
+                      ></RestuarantCard>
+                    }
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="rest-chain-list">
+              <div
+                className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 "
+                id="restaurantChainSlider"
+              >
+                {restChainList.map((topratedrest) => (
+                  <Link
+                    key={topratedrest.info.id}
+                    to={"/restaurants/" + topratedrest.info.id}
+                  >
+                    {
+                      <RestuarantCard
+                        resData={topratedrest}
+                        mobResData={topratedrest}
+                        isMobile={isMobile}
+                        className="text-breakwords "
+                      ></RestuarantCard>
+                    }
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* -------------------------Rest Chain section end ------------------------ */}
 
         <div className="divider">
-          <hr className=" border-2 bg-[rgb(240, 240, 245)] m-[32px]"></hr>
+          <hr className=" bborder-[1px] bg-[rgb(240, 240, 245)] m-4"></hr>
         </div>
 
         {/* ---------------------------------Restaurant list start--------------------------------- */}
 
         <div className="res-container">
           <div className="reslist-header mb-5">
-            <h2 className="font-bold text-2xl">{restListHeading}</h2>
+            <h2 className="font-bold text-2xl max-md:text-xl ">
+              {isMobile ? mobRestListHeading : restListHeading}
+            </h2>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
+          {/* {listOfRestaurant.length ? (
+            <div className="rest-chain-list">
+              <div
+                className="top-rated-rest-chain-list flex overflow-x-scroll scroll whitespace-nowrap scroll-smooth no-scrollbar gap-10 "
+                id="restaurantChainSlider"
+              >
+                {restChainList.map((topratedrest) => (
+                  <Link
+                    key={topratedrest.info.id}
+                    to={"/restaurants/" + topratedrest.info.id}
+                  >
+                    {
+                      <RestuarantCard
+                        resData={topratedrest}
+                        className="text-breakwords "
+                      ></RestuarantCard>
+                    }
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : null} */}
           <div className="filter-buttons flex items-center">
-            <div className="rating-button mr-4">
+            {/* <div className="rating-button mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -241,8 +412,8 @@ const Body = () => {
               >
                 Rating 4.5+
               </button>
-            </div>
-            <div className="fastdelivery-button mr-4">
+            </div> */}
+            {/* <div className="fastdelivery-button mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -254,8 +425,8 @@ const Body = () => {
               >
                 Fast Delivery
               </button>
-            </div>
-            <div className="cost-300 mr-4">
+            </div> */}
+            {/* <div className="cost-300 mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -268,8 +439,8 @@ const Body = () => {
               >
                 Less than Rs. 300
               </button>
-            </div>
-            <div className="cost-300-600 mr-4">
+            </div> */}
+            {/* <div className="cost-300-600 mr-4">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
                 onClick={() => {
@@ -282,7 +453,7 @@ const Body = () => {
               >
                 Rs. 300 - Rs. 600
               </button>
-            </div>
+            </div> */}
             {/* <div className="Pure-Veg">
               <button
                 className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
@@ -297,22 +468,60 @@ const Body = () => {
               </button>
             </div> */}
           </div>
-          <div className="grid grid-cols-4  max-md:grid-cols-1 max-md:justify-center items-start gap-8 my-8">
-            {
-              listOfRestaurant.map((restuarant) => (
-                <Link
-                  key={restuarant.info.id}
-                  to={"/restaurants/" + restuarant.info.id}
-                >
-                  {restuarant.info.veg ? (
-                    <RestaurantCardVeg resData={restuarant} />
-                  ) : (
-                    <RestuarantCard resData={restuarant} />
-                  )}
-                </Link>
-              )) // Looping over arrray using Map
-            }
-          </div>
+          {isMobile ? (
+            <div className="grid grid-cols-2 max-md:gap justify-center items-start  ">
+              {
+                mobListOfRestaurant.map((restuarant) => (
+                  <Link
+                    key={restuarant.info.id}
+                    to={"/restaurants/" + restuarant.info.id}
+                    className=""
+                  >
+                    {restuarant.info.veg ? (
+                      <RestaurantCardVeg
+                        resData={restuarant}
+                        mobResData={restuarant}
+                        isMobile={isMobile}
+                        className="text-breakwords "
+                      />
+                    ) : (
+                      <RestuarantCard
+                        resData={restuarant}
+                        mobResData={restuarant}
+                        isMobile={isMobile}
+                        className="text-breakword"
+                      />
+                    )}
+                  </Link>
+                )) // Looping over arrray using Map
+              }
+            </div>
+          ) : (
+            <div className="grid grid-cols-4  items-start gap-8 my-8 ">
+              {
+                listOfRestaurant.map((restuarant) => (
+                  <Link
+                    key={restuarant.info.id}
+                    to={"/restaurants/" + restuarant.info.id}
+                  >
+                    {restuarant.info.veg ? (
+                      <RestaurantCardVeg
+                        resData={restuarant}
+                        mobResData={restuarant}
+                        isMobile={isMobile}
+                      />
+                    ) : (
+                      <RestuarantCard
+                        resData={restuarant}
+                        mobResData={restuarant}
+                        isMobile={isMobile}
+                      />
+                    )}
+                  </Link>
+                )) // Looping over arrray using Map
+              }
+            </div>
+          )}
         </div>
         {/* ---------------------------------Restaurant list end --------------------------------- */}
       </div>
