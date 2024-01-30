@@ -23,8 +23,8 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
 
   // API endpoints for desktop and mobile
-  const regularMenuEndpoint = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0177989&lng=72.84781199999999&restaurantId=${resId}`;
-  const mobileMenuEndpoint = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0177989&lng=72.84781199999999&restaurantId=${resId}`;
+  const regularMenuEndpoint = `https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D19.0177989%26lng%3D72.84781199999999%26restaurantId=${resId}`;
+  const mobileMenuEndpoint = `https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fmapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D19.0177989%26lng%3D72.84781199999999%26restaurantId=${resId}`;
 
   // Fetch data based on the device
   const resInfo = useRestaurant(
