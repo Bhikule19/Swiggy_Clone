@@ -77,7 +77,7 @@ const Body = () => {
       );
 
     // Fetch data from the second API
-    fetch(MOB_REST_API)
+    fetch(CORS_API + MOB_REST_API)
       .then((response) => response.json())
       .then((data) => {
         setDataFromSecondAPI(data);
