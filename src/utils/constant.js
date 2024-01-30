@@ -30,4 +30,4 @@ export const REST_API =
 export const CORS_API = "https://corsproxy.org/?";
 
 export const MOB_REST_API =
-  "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=19.0177989&lng=72.84781199999999&carousel=true&third_party_vendor=1 ";
+  "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=19.0177989&lng=72.84781199999999&carousel=true&third_party_vendor=1";
