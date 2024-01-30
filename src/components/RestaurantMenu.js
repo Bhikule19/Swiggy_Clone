@@ -6,6 +6,7 @@ import { MENU_URL, MENU_CAROUSAL } from "../utils/constant";
 import RestaurantCategory from "./RestaurantCategory";
 // import VegButton from "../utils/vegButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMediaQuery } from "react-responsive";
 
 import {
   faStar,
@@ -15,13 +16,26 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const RestaurantMenu = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 }); // Adjust the breakpoint as needed
+
   const [showItems, setshowItems] = useState(0);
 
   const { resId } = useParams();
 
-  const resInfo = useRestaurant(resId);
+  // API endpoints for desktop and mobile
+  const regularMenuEndpoint = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0177989&lng=72.84781199999999&restaurantId=${resId}`;
+  const mobileMenuEndpoint = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0177989&lng=72.84781199999999&restaurantId=${resId}`;
+
+  // Fetch data based on the device
+  const resInfo = useRestaurant(
+    resId,
+    isMobile ? mobileMenuEndpoint : regularMenuEndpoint
+  );
 
   if (resInfo === null) return <Shimmer />;
+
+  // Choose the appropriate index based on the screen size
+  const dataIndex = isMobile ? 2 : 0;
 
   const {
     name,
@@ -32,22 +46,25 @@ const RestaurantMenu = () => {
     sla,
     totalRatingsString,
     feeDetails,
-  } = resInfo?.cards[0]?.card?.card?.info || {};
+  } = resInfo?.cards[dataIndex]?.card?.card?.info || {};
 
   // console.log(resInfo);
 
-  const offerData =
-    resInfo?.cards[1].card.card.gridElements.infoWithStyle.offers;
+  const offerData = isMobile
+    ? resInfo?.cards[3].card.card.gridElements.infoWithStyle.offers
+    : resInfo?.cards[1].card.card.gridElements.infoWithStyle.offers;
 
-  // console.log(offerData);
+  console.log(offerData);
 
   // const offerTag = offerData.info;
 
   // console.log(offerTag);
 
-  const carouselMenu =
-    resInfo?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
-      .carousel;
+  const carouselMenu = isMobile
+    ? resInfo?.cards[5].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
+        .carousel
+    : resInfo?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
+        .carousel;
 
   // console.log(
   //   resInfo?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
@@ -61,12 +78,17 @@ const RestaurantMenu = () => {
 
   // console.log(resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards);
 
-  const categories =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
-      (c) =>
-        c.card?.card?.["@type"] ===
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    );
+  const categories = isMobile
+    ? resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
+        (c) =>
+          c.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      )
+    : resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
+        (c) =>
+          c.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
 
   // const vegButtonClick = () => {
   //   return console.log("clicked");
@@ -361,15 +383,18 @@ const RestaurantMenu = () => {
       ) : null}
       {/* -----------------ACCORDIAN---------------------- */}
       <div>
-        {/* Categories accordian */}
-        {categories.map((category, index) => (
-          <RestaurantCategory
-            data={category?.card?.card}
-            key={category?.card?.card?.title}
-            showItems={index === showItems ? true : false}
-            setshowItems={() => setshowItems(index)}
-          />
-        ))}
+        {categories && categories.length > 0 ? (
+          categories.map((category, index) => (
+            <RestaurantCategory
+              data={category?.card?.card}
+              key={category?.card?.card?.title}
+              showItems={index === showItems}
+              setshowItems={() => setshowItems(index)}
+            />
+          ))
+        ) : (
+          <p>No categories available.</p>
+        )}
       </div>
       {/* -----------------ACCORDIAN---------------------- */}
     </div>

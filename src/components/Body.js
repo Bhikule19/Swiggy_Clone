@@ -161,6 +161,7 @@ const Body = () => {
   ) : (
     <div>
       {isMobile ? (
+        // Screen Size
         mobListOfRestaurant?.length === 0 ? (
           <Shimmer />
         ) : (
