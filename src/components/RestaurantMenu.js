@@ -54,7 +54,7 @@ const RestaurantMenu = () => {
     ? resInfo?.cards[3].card.card.gridElements.infoWithStyle.offers
     : resInfo?.cards[1].card.card.gridElements.infoWithStyle.offers;
 
-  console.log(offerData);
+  // console.log(offerData);
 
   // const offerTag = offerData.info;
 
@@ -94,7 +94,74 @@ const RestaurantMenu = () => {
   //   return console.log("clicked");
   // };
 
-  return (
+  return isMobile ? (
+    <div className="mt-[100px] p-0">
+      <div class="flex justify-center flex-col items-start ml-4 mb-4">
+        <h1 class="font-sans font-bold text-2xl leading-7 tracking-tight text-gray-800">
+          {name}
+        </h1>
+      </div>
+      <div>
+        <div class="bg-mobile  p-[0px_16px_16px]  rounded-bl-[36px] rounded-br-[36px]">
+          <div className="shadow-[0px_8px_16px_0px_rgba(0,0,0,0.04)] bg-white rounded-[20px] border-[1px] border-solid border-[#02060c26] ">
+            <div className="mb-5"></div>
+            <div className="flex items-center m-[0_16px]">
+              <div className=" icon w-5 h-5 m-[-2px_4px_0px_0px]">
+                <div className="leading-[0]">
+                  <FontAwesomeIcon icon={faStar} className="text-green-500" />
+                </div>
+              </div>
+              <div className="ratings font-bold text-base leading-[19px] tracking-[-0.3px] text-gray-800">
+                {avgRating} ({totalRatingsString})
+              </div>
+              <div className="font-extralight text-base leading-5 tracking-[0.3px] text-gray-500 m-[0_8px]">
+                •
+              </div>
+              <div className="font-bold text-base leading-[19px] tracking-[-0.3px] text-gray-800">
+                {costForTwoMessage}
+              </div>
+            </div>
+            <div className="flex m-[8px_20px] items-center">
+              <p className="font-bold text-sm leading-4 tracking-[-0.1px] text-orange-500">
+                {cuisines.join(", ")}
+              </p>
+            </div>
+            <div className="flex mx-5 py-1 items-center">
+              <div className="flex flex-col items-center">
+                <div className="w-[7px] h-[7px] rounded-[50%] bg-[#c4c4c4] "></div>
+                <div className="w-[1px] h-[21px] bg-[#c4c4c4] "></div>
+                <div className="w-[7px] h-[7px] rounded-[50%] bg-[#c4c4c4]"></div>
+              </div>
+              <div className="flex flex-col justify-center ml-3 pr-4 w-full">
+                <div className="flex mb-[2px]">
+                  <div className="font-bold text-sm leading-[18px] tracking-[-0.3px] text-[#02060ceb]">
+                    Outlet
+                  </div>
+                  <div className="text-center max-w-[70%] ml-3 whitespace-nowrap overflow-hidden font-extralight text-sm leading-[18px] tracking-[-0.3px] text-[#02060c99] ">
+                    {areaName}
+                  </div>
+                </div>
+                <div className="flex mt-2 whitespace-nowrap">
+                  <div className="font-bold text-sm leading-[18px] tracking-[-0.3px] text-[#02060ceb]">
+                    {sla.slaString}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr className=" my-3 border-[1px] border-solid border-[#f0f0f5]"></hr>
+            <ul className="list-none	">
+              <li className="mx-4 text-[#7e808c] flex items-start mb-4">
+                <FontAwesomeIcon icon={faBicycle} className="mr-2" />
+                <span className="text-sm ">{feeDetails.message}</span>
+              </li>
+            </ul>
+            <div className="mb-4"></div>
+          </div>
+        </div>
+      </div>
+      <div className=""></div>
+    </div>
+  ) : (
     <div className="max-w-[800px] min-h-[800px]  mt-[100px] mx-auto mb-0">
       <div className="RestHeader-container mx-4">
         <div className="RestHead-wrapper mb-5">
