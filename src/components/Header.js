@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+
 // import { IoCart } from "react-icons/io5";
 
 const Header = () => {
@@ -22,7 +23,7 @@ const Header = () => {
         <div className="block">
           <div className="max-w-[1200px] min-w-[120px] relative m-[0_auto] h-20 bg-white flex items-center">
             <Link className="no-underline	 block h-12">
-              <img className="h-10 w-6" srcSet={LOGO_URL} />
+              <img className="h-8 w-8 " srcSet={LOGO_URL} />
             </Link>
             <ul className="flex-[1] min-w-0 flex flex-row-reverse h-full items-center list-none	">
               <li className="mr-0 text-[#3d4152] text-base font-medium">

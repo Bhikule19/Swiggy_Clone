@@ -23,8 +23,8 @@ const RestuarantCard = (props) => {
 
   return (
     <div className=" p-0">
-      <div className="grid gap-3 max-md:gap-3 grid-flow-row justify-stretch items-center max-md:mb-8">
-        <div className="w-[250px] max-md:w-[196px] h-[170px] max-md:h-[164px] drop-shadow-md  hover:scale-110 transition ease-out delay-150 duration-300 ">
+      <div className="grid gap-3 grid-flow-row justify-stretch items-center mb-5">
+        <div className="w-[250px] max-md:w-[165px] h-[170px] max-md:h-[200px] drop-shadow-md  hover:scale-110 transition ease-out delay-150 duration-300 ">
           <div className="w-full	h-full rounded-2xl overflow-hidden">
             <img
               className="res-logo	w-full h-full object-cover "
@@ -74,8 +74,8 @@ export const withVegLabel = (RestuarantCard) => {
   return (props) => {
     return (
       <div className="">
-        <label className="absolute bg-green-500 text-white m-2 p-2 rounded-lg">
-          Veg
+        <label className=" absolute bg-green-500 text-white m-2 p-2 rounded-lg z-10">
+          Pure Veg
         </label>
         <RestuarantCard {...props} />
       </div>

@@ -110,7 +110,7 @@ const Body = () => {
       );
   }, []);
 
-  // console.log("List of restaurants", mobListOfRestaurant);
+  // console.log("List of restaurants", listOfRestaurant);
   // console.log("filterest rest", mobFilteredRest);
   // console.log("benner heading", bannerHeading);
   // console.log("cuisines list", mobCuisinesList.slice(-10));
@@ -447,43 +447,72 @@ const Body = () => {
                     Rs. 300 - Rs. 600
                   </button>
                 </div>
-                {/* <div className="Pure-Veg">
-              <button
-                className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
-                onClick={() => {
-                  const filteredList = listOfRestaurant.filter((res) => {
-                    res.info.veg === true;
-                  });
-                  setlistOfRestaurant(filteredList);
-                }}
-              >
-                Pure Veg
-              </button>
-            </div> */}
+                <div className="Pure-Veg">
+                  <button
+                    className="p-2 border border-black rounded-3xl border-opacity-30 cursor-pointer active:bg-orange-400"
+                    onClick={() => {
+                      const filteredList = listOfRestaurant.filter((res) => {
+                        return res.info.veg;
+                      });
+                      setlistOfRestaurant(filteredList);
+                    }}
+                  >
+                    Pure Veg
+                  </button>
+                </div>
               </div>
-              <div className="grid grid-cols-4  items-start gap-8 my-8 ">
-                {
-                  listOfRestaurant.map((restuarant) => (
-                    <Link
-                      key={restuarant.info.id}
-                      to={"/restaurants/" + restuarant.info.id}
-                    >
-                      {restuarant.info.veg ? (
-                        <RestaurantCardVeg
-                          resData={restuarant}
-                          mobResData={restuarant}
-                          isMobile={isMobile}
-                        />
-                      ) : (
-                        <RestuarantCard
-                          resData={restuarant}
-                          mobResData={restuarant}
-                          isMobile={isMobile}
-                        />
-                      )}
-                    </Link>
-                  )) // Looping over arrray using Map
-                }
+              <div className="block">
+                {isMobile ? (
+                  <div className="rest_card_grid ">
+                    {
+                      listOfRestaurant.map((restuarant) => (
+                        <Link
+                          key={restuarant.info.id}
+                          to={"/restaurants/" + restuarant.info.id}
+                        >
+                          {restuarant.info.veg ? (
+                            <RestaurantCardVeg
+                              resData={restuarant}
+                              mobResData={restuarant}
+                              isMobile={isMobile}
+                            />
+                          ) : (
+                            <RestuarantCard
+                              resData={restuarant}
+                              mobResData={restuarant}
+                              isMobile={isMobile}
+                            />
+                          )}
+                        </Link>
+                      )) // Looping over arrray using Map
+                    }
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-4 items-start gap-8 my-8 ">
+                    {
+                      listOfRestaurant.map((restuarant) => (
+                        <Link
+                          key={restuarant.info.id}
+                          to={"/restaurants/" + restuarant.info.id}
+                        >
+                          {restuarant.info.veg ? (
+                            <RestaurantCardVeg
+                              resData={restuarant}
+                              mobResData={restuarant}
+                              isMobile={isMobile}
+                            />
+                          ) : (
+                            <RestuarantCard
+                              resData={restuarant}
+                              mobResData={restuarant}
+                              isMobile={isMobile}
+                            />
+                          )}
+                        </Link>
+                      )) // Looping over arrray using Map
+                    }
+                  </div>
+                )}
               </div>
             </div>
 

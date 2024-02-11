@@ -77,4 +77,16 @@
       rgb(223, 223, 231) 106.56%
     );
   }
+
+  .rest_card_grid {
+    padding: 0px;
+    list-style: none;
+    margin-block-end: 0px;
+    display: grid;
+    -webkit-box-align: start;
+    align-items: start;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 16px;
+    margin: 32px 16px;
+  }
 }
