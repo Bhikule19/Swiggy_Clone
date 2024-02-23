@@ -11,7 +11,7 @@ const RestaurantCategory = ({ data, showItems, setshowItems }) => {
     // setshowItems();
   };
 
-  // console.log(data);
+  console.log(data);
   return (
     <div>
       <div className="relative block">

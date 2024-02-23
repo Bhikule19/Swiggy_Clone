@@ -37,7 +37,7 @@ const RestaurantMenu = () => {
   if (resInfo === null) return <Shimmer />;
 
   // Choose the appropriate index based on the screen size
-  const dataIndex = isMobile ? 2 : 0;
+  const dataIndex = isMobile ? 2 : 2;
 
   const {
     name,
@@ -54,7 +54,7 @@ const RestaurantMenu = () => {
 
   const offerData = isMobile
     ? resInfo?.cards[3].card.card.gridElements.infoWithStyle.offers
-    : resInfo?.cards[1].card.card.gridElements.infoWithStyle.offers;
+    : resInfo?.cards[3].card.card.gridElements.infoWithStyle.offers;
 
   // console.log(offerData);
 
@@ -65,7 +65,7 @@ const RestaurantMenu = () => {
   const carouselMenu = isMobile
     ? resInfo?.cards[5].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
         .carousel
-    : resInfo?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
+    : resInfo?.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
         .carousel;
 
   // console.log(
@@ -86,7 +86,7 @@ const RestaurantMenu = () => {
           c.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
       )
-    : resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
+    : resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
         (c) =>
           c.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"

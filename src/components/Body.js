@@ -77,7 +77,7 @@ const Body = () => {
       );
 
     // Fetch data from the second API
-    fetch(CORS_API + MOB_REST_API)
+    fetch(MOB_REST_API)
       .then((response) => response.json())
       .then((data) => {
         setDataFromSecondAPI(data);
@@ -109,6 +109,8 @@ const Body = () => {
         console.error("Error fetching data from the second API:", error)
       );
   }, []);
+
+  console.log(dataFromSecondAPI);
 
   // console.log("List of restaurants", listOfRestaurant);
   // console.log("filterest rest", mobFilteredRest);
