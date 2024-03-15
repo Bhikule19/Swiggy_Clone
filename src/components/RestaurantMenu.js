@@ -25,7 +25,7 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
 
   // API endpoints for desktop and mobile
-  const regularMenuEndpoint = `https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D19.0177989%26lng%3D72.84781199999999%26restaurantId%3D${resId}%26catalog_qa%3Dundefined%26submitAction%3DENTER`;
+  const regularMenuEndpoint = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0177989&lng=72.84781199999999&restaurantId=${resId}&catalog_qa=undefined&submitAction=ENTER`;
   const mobileMenuEndpoint = `https://corsproxy.org/?https%3A%2F%2Fwww.swiggy.com%2Fmapi%2Fmenu%2Fpl%3Fpage-type%3DREGULAR_MENU%26complete-menu%3Dtrue%26lat%3D19.0177989%26lng%3D72.84781199999999%26restaurantId%3D${resId}%26isMenuUx4%3Dtrue%26submitAction%3DENTER`;
 
   // Fetch data based on the device
@@ -37,7 +37,7 @@ const RestaurantMenu = () => {
   if (resInfo === null) return <Shimmer />;
 
   // Choose the appropriate index based on the screen size
-  const dataIndex = isMobile ? 2 : 2;
+  const dataIndex = isMobile ? 2 : 0;
 
   const {
     name,
@@ -50,11 +50,11 @@ const RestaurantMenu = () => {
     feeDetails,
   } = resInfo?.cards[dataIndex]?.card?.card?.info || {};
 
-  // console.log(resInfo);
+  // console.log(regularMenuEndpoint);
 
   const offerData = isMobile
     ? resInfo?.cards[3].card.card.gridElements.infoWithStyle.offers
-    : resInfo?.cards[3].card.card.gridElements.infoWithStyle.offers;
+    : resInfo?.cards[1].card.card.gridElements.infoWithStyle.offers;
 
   // console.log(offerData);
 
@@ -65,7 +65,7 @@ const RestaurantMenu = () => {
   const carouselMenu = isMobile
     ? resInfo?.cards[5].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
         .carousel
-    : resInfo?.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
+    : resInfo?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
         .carousel;
 
   // console.log(
@@ -86,7 +86,7 @@ const RestaurantMenu = () => {
           c.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
       )
-    : resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
+    : resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
         (c) =>
           c.card?.card?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"

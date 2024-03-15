@@ -46,7 +46,7 @@ const Body = () => {
 
   useEffect(() => {
     // fetchData();
-    fetch(CORS_API + REST_API)
+    fetch(REST_API)
       .then((response) => response.json())
       .then((data) => {
         setDataFromFirstAPI(data);

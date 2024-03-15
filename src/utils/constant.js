@@ -24,7 +24,7 @@ export const SHIMMER_ICON =
 // export const REST_API =
 //   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0177989&lng=72.84781199999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 export const REST_API =
-  "https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Frestaurants%2Flist%2Fv5%3Flat%3D19.0177989%26lng%3D72.84781199999999%26is-seo-homepage-enabled%3Dtrue%26page_type%3DDESKTOP_WEB_LISTING";
+  "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0177989&lng=72.84781199999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 
 // export const CORS_API = "https://thingproxy.freeboard.io/fetch/";
 export const CORS_API = "https://corsproxy.org/?";
